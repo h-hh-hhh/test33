@@ -2,11 +2,65 @@
 //
 
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
+class Car {
+public:
+    string name;
+    int year;
+    double price;
+    double eng;
+    Car(string n, int y, double p, double eng) :
+        name(n),
+        year(y),
+        price(p),
+        eng(eng)
+    {}
+};
+
+ostream& operator<<(ostream& out, Car c) {
+    out << c.year
+        << " "
+        << c.name
+        << " "
+        << c.eng
+        << "L $"
+        << c.price
+        << endl;
+    return out;
+}
+
+class A {
+    vector<Car> cars;
+public:
+    A() {}
+    void push_back(Car car) {
+        cars.push_back(car);
+    }
+    Car operator[](int index) {
+        return cars[index];
+    }
+    int size() {
+        return cars.size();
+    }
+};
+
+ostream& operator<<(ostream& out, A a) {
+    for (int i = 0; i < a.size(); i++) {
+        out << a[i];
+    }
+    return out;
+}
+
 int main() {
-    std::cout << "Hello World!\n";
+    A a;
+    a.push_back(Car("Toyota Corolla", 2010, 9999.99, 1.7));
+    a.push_back(Car("Honda Civic", 2014, 12999.99, 1.9));
+    a.push_back(Car("VW Passat", 2017, 17999.99, 2.0));
+    a.push_back(Car("UAZ 469", 1975, 999.99, 2.445));
+    cout << a;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
