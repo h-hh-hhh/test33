@@ -3,9 +3,31 @@
 
 #include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+class Point3 {
+    int x, y, z;
+public:
+    Point3(int x, int y, int z) :
+        x(x),
+        y(y),
+        z(z)
+    {}
+    void print() const {
+        cout << "("
+            << x
+            << ", "
+            << y
+            << ", "
+            << z
+            << ")\n"; // (x, y, z)\n
+    }
+};
+
+int main() {
+    cout << 3 * 4 << endl; // 12
+    Point3 p(1, 2, 3);
+    p.print();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
