@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -45,6 +46,28 @@ public:
     int size() {
         return cars.size();
     }
+    void erase(int index) {
+        if (index < 0 || index >= cars.size()) {
+            cout << "Not found!\n";
+            return;
+        }
+        cars.erase(cars.begin() + index);
+    }
+    void erase(string s) {
+        int index = search(s);
+        if (index < 0) {
+            cout << "Not found!\n";
+            return;
+        }
+        cars.erase(cars.begin() + index);
+    }
+    int search(string s) {
+        int I = -1;
+        for (int i = 0; i < cars.size(); i++) {
+            if (cars[i].name == s) I = i;
+        }
+        return I;
+    }
 };
 
 ostream& operator<<(ostream& out, A a) {
@@ -54,13 +77,65 @@ ostream& operator<<(ostream& out, A a) {
     return out;
 }
 
+int menu() {
+    int c;
+    cout << "1. add" << endl
+        << "2. remove" << endl
+        << "3. search" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl
+        << "" << endl;
+    cin >> c;
+    return c;
+}
+
+Car createCar() {
+    string n;
+    int y;
+    double p, e;
+    cout << "Name : ";
+    getline(cin>>ws, n);
+    cout << "Year : ";
+    cin >> y;
+    cout << "Engine : ";
+    cin >> e;
+    cout << "Price : ";
+    cin >> p;
+    return Car(n, y, p, e);
+}
+
 int main() {
     A a;
+    int c;
+    string cS;
     a.push_back(Car("Toyota Corolla", 2010, 9999.99, 1.7));
     a.push_back(Car("Honda Civic", 2014, 12999.99, 1.9));
     a.push_back(Car("VW Passat", 2017, 17999.99, 2.0));
     a.push_back(Car("UAZ 469", 1975, 999.99, 2.445));
-    cout << a;
+    for (;;) {
+        cout << a;
+        c = menu();
+        switch (c) {
+        case 0:
+            *(int*)0 = 0;
+        case 1:
+            a.push_back(createCar());
+            break;
+        case 2:
+            getline(cin >> ws, cS);
+            a.erase(cS);
+            break;
+        case 3:
+            getline(cin >> ws, cS);
+            cout << a.search(cS) << " : " << a[a.search(cS)];
+            break;
+        }
+    }
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
