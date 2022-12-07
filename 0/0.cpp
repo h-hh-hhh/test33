@@ -5,6 +5,22 @@
 
 using namespace std;
 
+class Point2 {
+    int x, y;
+public:
+    Point2(int x, int y) :
+        x(x),
+        y(y)
+    {}
+    void print() const {
+        cout << "("
+            << x
+            << ", "
+            << y
+            << ")\n"; // (x, y)\n
+    }
+};
+
 class Point3 {
     int x, y, z;
 public:
@@ -26,8 +42,10 @@ public:
 
 int main() {
     cout << 3 * 4 << endl; // 12
-    Point3 p(1, 2, 3);
-    p.print();
+    Point2 p2(1, 2);
+    p2.print();
+    Point3 p3(1, 2, 3);
+    p3.print();
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
