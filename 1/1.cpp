@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
@@ -68,6 +69,10 @@ public:
         }
         return I;
     }
+    template<class Pr>
+    void sort(Pr func) {
+        std::sort(cars.begin(), cars.end(), func);
+    }
 };
 
 ostream& operator<<(ostream& out, A a) {
@@ -82,14 +87,7 @@ int menu() {
     cout << "1. add" << endl
         << "2. remove" << endl
         << "3. search" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl
-        << "" << endl;
+        << "4. sort" << endl;
     cin >> c;
     return c;
 }
@@ -113,6 +111,9 @@ int main() {
     A a;
     int c;
     string cS;
+    auto compare = [](Car a, Car b) {
+        return a.name < b.name;
+    };
     a.push_back(Car("Toyota Corolla", 2010, 9999.99, 1.7));
     a.push_back(Car("Honda Civic", 2014, 12999.99, 1.9));
     a.push_back(Car("VW Passat", 2017, 17999.99, 2.0));
@@ -133,6 +134,9 @@ int main() {
         case 3:
             getline(cin >> ws, cS);
             cout << a.search(cS) << " : " << a[a.search(cS)];
+            break;
+        case 4:
+            a.sort(compare);
             break;
         }
     }
